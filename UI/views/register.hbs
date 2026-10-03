@@ -1,0 +1,224 @@
+<div class="min-h-screen gradient-bg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl w-full space-y-8">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 card-hover">
+            <div class="text-center">
+                <i class="fas fa-user-plus text-purple-600 text-4xl mb-4"></i>
+                <h2 class="text-3xl font-bold text-gray-900">Create Account</h2>
+                <p class="mt-2 text-gray-600">Join the Evidence Management System</p>
+            </div>
+
+            {{#if message}}
+            <div class="mt-4 p-4 rounded-lg {{#if keys}}bg-green-100 text-green-700{{else}}bg-red-100 text-red-700{{/if}}">
+                {{message}}
+            </div>
+            {{/if}}
+
+            <form class="mt-8 space-y-6" method="POST" action="/generate-keys">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input id="name" name="name" type="text" required 
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                               value="{{formData.name}}">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input id="email" name="email" type="email" required 
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                               value="{{formData.email}}">
+                    </div>
+                </div>
+
+                <!-- 🔽 ADDED: Algorithm Selection Section 🔽 -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">
+                        <i class="fas fa-lock mr-2"></i>Select Cryptographic Algorithm
+                    </label>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {{#each supportedAlgorithms}}
+                        <div class="algorithm-card border rounded-lg p-3 cursor-pointer transition-all duration-200 
+                                    {{#if (eq @key ../selectedAlgorithm)}}border-purple-500 bg-purple-50{{else}}border-gray-300{{/if}}"
+                             onclick="selectAlgorithm('{{@key}}')">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium text-gray-900">{{this.name}}</div>
+                                    <div class="text-xs text-gray-600 mt-1">
+                                        {{#if (eq this.type 'pqc')}}
+                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <i class="fas fa-shield-alt mr-1"></i>PQC
+                                        </span>
+                                        {{else}}
+                                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            <i class="fas fa-lock mr-1"></i>Classical
+                                        </span>
+                                        {{/if}}
+                                        • {{this.security}}-bit security
+                                    </div>
+                                </div>
+                                <input type="radio" name="algorithm" value="{{@key}}" 
+                                       {{#if (eq @key ../selectedAlgorithm)}}checked{{/if}}
+                                       class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300">
+                            </div>
+                            {{#if this.recommended}}
+                            <div class="mt-2 text-xs text-purple-600 font-medium">
+                                <i class="fas fa-star mr-1"></i>Recommended
+                            </div>
+                            {{/if}}
+                        </div>
+                        {{/each}}
+                    </div>
+                    
+                    <div class="mt-3 text-xs text-gray-500">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        PQC (Post-Quantum Cryptography) algorithms provide protection against quantum computer attacks
+                    </div>
+                </div>
+                <!-- 🔼 END OF ADDITION 🔼 -->
+
+                <div>
+                    <button type="submit" 
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150">
+                        <i class="fas fa-key mr-2"></i>
+                        Generate Keys
+                    </button>
+                </div>
+            </form>
+
+            {{#if keys}}
+            <div class="mt-6 p-6 bg-gray-50 rounded-lg border-2 border-green-200">
+                <div class="text-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-yellow-500 text-2xl mr-2"></i>
+                    <span class="text-lg font-bold text-gray-900">Important: Save Your Private Key</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-address-card mr-2"></i>Your Address
+                        </label>
+                        <div class="p-3 bg-white border border-gray-300 rounded-md text-sm font-mono break-all">
+                            {{keys.address}}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lock-open mr-2"></i>Public Key
+                        </label>
+                        <div class="p-3 bg-white border border-gray-300 rounded-md text-sm font-mono break-all">
+                            {{keys.publicKey}}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-red-700 mb-2">
+                            <i class="fas fa-lock mr-2"></i>Private Key (Save This Securely!)
+                        </label>
+                        <div class="p-3 bg-red-50 border-2 border-red-300 rounded-md text-sm font-mono break-all"
+                             id="privateKeyDisplay">
+                            {{keys.privateKey}}
+                        </div>
+                        <p class="mt-1 text-xs text-red-600">Store this safely! You'll need it to login.</p>
+                    </div>
+
+                    <!-- 🔽 ADDED: PQC Key Information Display 🔽 -->
+                    {{#if keyDetails}}
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h4 class="text-sm font-medium text-blue-900 mb-2 flex items-center">
+                            <i class="fas fa-microchip mr-2"></i>
+                            Cryptographic Details
+                        </h4>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <span class="text-blue-700">Algorithm:</span>
+                                <div class="font-mono text-blue-900">{{keyDetails.algorithm}}</div>
+                            </div>
+                            <div>
+                                <span class="text-blue-700">Security Level:</span>
+                                <div class="font-mono text-blue-900">{{keyDetails.securityLevel}}-bit</div>
+                            </div>
+                            <div>
+                                <span class="text-blue-700">Generation Time:</span>
+                                <div class="font-mono text-blue-900">{{keyDetails.generationTime}}ms</div>
+                            </div>
+                            <div>
+                                <span class="text-blue-700">Key Sizes:</span>
+                                <div class="font-mono text-blue-900">
+                                    Public: {{keyDetails.publicKeySize}}b<br>
+                                    Private: {{keyDetails.privateKeySize}}b
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <!-- 🔼 END OF ADDITION 🔼 -->
+                </div>
+
+                <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Security Warning</h3>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <p>• Your private key cannot be recovered if lost</p>
+                                <p>• Never share your private key with anyone</p>
+                                <p>• Store it in a secure password manager</p>
+                                <p>• You will need this private key to login</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" action="/register" class="mt-6">
+                    <input type="hidden" name="name" value="{{formData.name}}">
+                    <input type="hidden" name="email" value="{{formData.email}}">
+                    <input type="hidden" name="publicKey" value="{{keys.publicKey}}">
+                    <input type="hidden" name="privateKey" value="{{keys.privateKey}}">
+                    <input type="hidden" name="address" value="{{keys.address}}">
+                    <input type="hidden" name="algorithm" value="{{selectedAlgorithm}}">
+                    
+                    <button type="submit" 
+                            class="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150">
+                        <i class="fas fa-check mr-2"></i>
+                        Complete Registration
+                    </button>
+                </form>
+            </div>
+            {{/if}}
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    Already have an account?
+                    <a href="/login" class="font-medium text-purple-600 hover:text-purple-500 transition duration-150">
+                        Sign in here
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function selectAlgorithm(algorithm) {
+    document.querySelectorAll('.algorithm-card').forEach(card => {
+        card.classList.remove('border-purple-500', 'bg-purple-50');
+        card.classList.add('border-gray-300');
+    });
+    
+    const selectedCard = document.querySelector(`.algorithm-card input[value="${algorithm}"]`).closest('.algorithm-card');
+    selectedCard.classList.add('border-purple-500', 'bg-purple-50');
+    selectedCard.classList.remove('border-gray-300');
+    
+    document.querySelector(`input[value="${algorithm}"]`).checked = true;
+}
+
+// Initialize algorithm selection
+document.addEventListener('DOMContentLoaded', function() {
+    const initialAlgorithm = '{{selectedAlgorithm}}' || 'DILITHIUM3';
+    selectAlgorithm(initialAlgorithm);
+});
+</script>

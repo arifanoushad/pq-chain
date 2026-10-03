@@ -1,0 +1,126 @@
+# Tables 10+11 e2e benchmark console log (re-run: per-call logging suppressed in timed crypto sections)
+# date: 2026-09-28T23:52:40+05:30 node: v24.21.0 commit: 22e659f power: AC=1 profile=performance
+# env: FABRIC_MODE=real BUNDLE_IPFS_URLS=3 local Kubo replicas BUNDLE_MIN_REPLICAS=3 BENCH_ITER=20 BENCH_FILE_MB=10
+
+📊 Crypto Performance Monitor: Terminal Output Mode
+╔══════════════════════════════════════════════════════════════════════════╗
+║  FULL END-TO-END: MULTI-SIG + 2PC + LIVE BESU                            ║
+╚══════════════════════════════════════════════════════════════════════════╝
+  Iterations per algorithm: 20
+  Committee size:           3/5
+  Algorithms:               ECC, DILITHIUM2, DILITHIUM3, DILITHIUM5
+  Fabric mode:              real
+  Evidence file:            10 MB, encrypted, 3 IPFS replica(s)
+
+  ⚠️  This benchmark drives the REAL 2PC coordinator against live Besu.
+     Each iteration writes a transfer to Besu (cannot be undone).
+
+════════ ECC ════════
+🔧 PQC Research Framework: REAL ECC + REAL Dilithium (will load on demand)
+ℹ️  FabricTransferClient running in REAL mode
+🔑 Generating key pair with algorithm: ECC
+🔑 ECC Key Generation: 2ms
+   Private Key: 32 bytes
+🔑 Generating key pair with algorithm: ECC
+🔑 ECC Key Generation: 1ms
+   Private Key: 32 bytes
+🔑 Generating key pair with algorithm: ECC
+🔑 ECC Key Generation: 0ms
+   Private Key: 32 bytes
+🔑 Generating key pair with algorithm: ECC
+🔑 ECC Key Generation: 1ms
+   Private Key: 32 bytes
+🔑 Generating key pair with algorithm: ECC
+🔑 ECC Key Generation: 1ms
+   Private Key: 32 bytes
+ℹ️  FabricTransferClient running in REAL mode
+   progress: 5/20
+   progress: 10/20
+   progress: 15/20
+   progress: 20/20
+   20/20 iterations COMMITTED and verified
+
+════════ DILITHIUM2 ════════
+🔧 PQC Research Framework: REAL ECC + REAL Dilithium (will load on demand)
+ℹ️  FabricTransferClient running in REAL mode
+🔑 Generating key pair with algorithm: DILITHIUM2
+🔑 DILITHIUM2 Key Generation: 10ms
+   Private Key: 2560 bytes
+🔑 Generating key pair with algorithm: DILITHIUM2
+🔑 DILITHIUM2 Key Generation: 1ms
+   Private Key: 2560 bytes
+🔑 Generating key pair with algorithm: DILITHIUM2
+🔑 DILITHIUM2 Key Generation: 2ms
+   Private Key: 2560 bytes
+🔑 Generating key pair with algorithm: DILITHIUM2
+🔑 DILITHIUM2 Key Generation: 1ms
+   Private Key: 2560 bytes
+🔑 Generating key pair with algorithm: DILITHIUM2
+🔑 DILITHIUM2 Key Generation: 1ms
+   Private Key: 2560 bytes
+   progress: 5/20
+   progress: 10/20
+   progress: 15/20
+   progress: 20/20
+   20/20 iterations COMMITTED and verified
+
+════════ DILITHIUM3 ════════
+🔧 PQC Research Framework: REAL ECC + REAL Dilithium (will load on demand)
+ℹ️  FabricTransferClient running in REAL mode
+🔑 Generating key pair with algorithm: DILITHIUM3
+🔑 DILITHIUM3 Key Generation: 2ms
+   Private Key: 4032 bytes
+🔑 Generating key pair with algorithm: DILITHIUM3
+🔑 DILITHIUM3 Key Generation: 1ms
+   Private Key: 4032 bytes
+🔑 Generating key pair with algorithm: DILITHIUM3
+🔑 DILITHIUM3 Key Generation: 2ms
+   Private Key: 4032 bytes
+🔑 Generating key pair with algorithm: DILITHIUM3
+🔑 DILITHIUM3 Key Generation: 1ms
+   Private Key: 4032 bytes
+🔑 Generating key pair with algorithm: DILITHIUM3
+🔑 DILITHIUM3 Key Generation: 2ms
+   Private Key: 4032 bytes
+   progress: 5/20
+   progress: 10/20
+   progress: 15/20
+   progress: 20/20
+   20/20 iterations COMMITTED and verified
+
+════════ DILITHIUM5 ════════
+🔧 PQC Research Framework: REAL ECC + REAL Dilithium (will load on demand)
+ℹ️  FabricTransferClient running in REAL mode
+🔑 Generating key pair with algorithm: DILITHIUM5
+🔑 DILITHIUM5 Key Generation: 2ms
+   Private Key: 4896 bytes
+🔑 Generating key pair with algorithm: DILITHIUM5
+🔑 DILITHIUM5 Key Generation: 3ms
+   Private Key: 4896 bytes
+🔑 Generating key pair with algorithm: DILITHIUM5
+🔑 DILITHIUM5 Key Generation: 2ms
+   Private Key: 4896 bytes
+🔑 Generating key pair with algorithm: DILITHIUM5
+🔑 DILITHIUM5 Key Generation: 2ms
+   Private Key: 4896 bytes
+🔑 Generating key pair with algorithm: DILITHIUM5
+🔑 DILITHIUM5 Key Generation: 2ms
+   Private Key: 4896 bytes
+   progress: 5/20
+   progress: 10/20
+   progress: 15/20
+   progress: 20/20
+   20/20 iterations COMMITTED and verified
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║  RESULTS (mean latency per phase, ms)                                    ║
+╚══════════════════════════════════════════════════════════════════════════╝
+Algorithm    │ iter │ upload │ sign(t) │ combine │ store │ prepare │ finalize │ verify │  total │ p95    │ bundle(B)
+─────────────┼──────┼────────┼─────────┼─────────┼───────┼─────────┼──────────┼────────┼────────┼────────┼──────────
+ECC          │   20 │    186 │     3.3 │     0.1 │    11 │    2047 │     2041 │     4.3 │    4100 │    4107 │      509
+DILITHIUM2   │   20 │    183 │    15.0 │     0.0 │    12 │    2047 │     2039 │     4.5 │    4099 │    4104 │    11297
+DILITHIUM3   │   20 │    180 │    28.3 │     0.0 │    13 │    2046 │     2041 │     5.8 │    4099 │    4109 │    15884
+DILITHIUM5   │   20 │    182 │    34.5 │     0.0 │    13 │    2046 │     2039 │     8.3 │    4099 │    4105 │    21758
+
+📁 Detailed results saved to: /home/arifa/projects/JISA Revision/Code Files/UI/test-scripts/test-results/revision/benchmark-multisig-2pc-1790620322690.json
+exit 0

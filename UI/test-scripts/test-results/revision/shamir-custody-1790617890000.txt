@@ -1,0 +1,32 @@
+# test-shamir-custody.js
+# date: 2026-09-28T23:21:30+05:30  node: v24.21.0
+
+
+[1] Issue shares
+   ✅ 5 shares issued; secret not returned
+   ✅ one share file per member
+   ✅ commitment stored and hasShare persisted for every member
+   ✅ no single all-shares file
+
+[2] Custody: only the member can open their share
+   ✅ shares open with the owner key; no plaintext share on disk
+   ✅ another member's key cannot open the share
+   ✅ share record re-labelled to another member is rejected (AAD)
+   ✅ tampered sealed share is rejected
+
+[3] Reconstruction from t member-supplied shares
+   ✅ t = 3 shares (members 1,2,3) reconstruct the secret
+   ✅ any t-subset works (members 2,4,5)
+   ✅ all n shares also work
+
+[4] Rejections
+   ✅ t-1 = 2 shares rejected
+   ✅ duplicate member counted once (2 distinct) → rejected
+   ✅ share submitted by a non-member rejected
+   ✅ wrong share among t shares rejected by the commitment check
+   ✅ old single-file share API removed (nothing reads all n shares)
+
+[5] Issuing requires member KEM keys
+   ✅ members without an ML-KEM public key → shares not issued
+
+17 passed, 0 failed

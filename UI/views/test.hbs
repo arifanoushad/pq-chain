@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Template</title>
+    <style>
+        body { 
+            background: linear-gradient(135deg, #ff0000, #0000ff) !important;
+            color: white;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-box {
+            background: green;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        🎉 DIRECT TEMPLATE - If you see this, Handlebars works!
+    </div>
+    <p>This template does NOT use main.hbs layout</p>
+</body>
+</html>
+EOF
+
+# Create test template with layout
+cat > test-with-layout.hbs << 'EOF'
+<h1 style="color: red; background: yellow; padding: 20px; text-align: center;">
+    🔥 TEST CONTENT - If you see this, main.hbs layout is working!
+</h1>
+<p>This content is inside the main.hbs layout</p>
+<a href="/dashboard" class="btn-primary">Go to Dashboard</a>

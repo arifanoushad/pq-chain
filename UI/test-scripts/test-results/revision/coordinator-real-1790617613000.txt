@@ -1,0 +1,22 @@
+# test-2pc-mesher.js (FABRIC_MODE=real, BUNDLE_MIN_REPLICAS=3)
+# date: 2026-09-28T23:17:16+05:30  node: v24.21.0  commit: ae324da (+ uncommitted changes of this commit)
+# network: Fabric 2.4.8 (Minifab; PoliceOrg, CourtOrg, 3 Raft orderers, CouchDB; chaincode as a service) + Besu 24.12.2 dev + 3 Kubo 0.32.1 replicas on one host
+
+  FABRIC_MODE = real
+[1] Happy path: prepare both → commit both
+   ✅ COMMITTED in 4237 ms (prepare=2164ms, finalize=2037ms)
+   ✅ Besu state = COMMITTED
+   ✅ Fabric state = COMMITTED
+   ✅ auditor: all 13 checks pass (bundle from http://127.0.0.1:5001)
+[2] Abort injection: besu.prepare fails → both sides abort
+   ✅ ABORTED as expected: prepare-failure: fabric=ok; besu=INJECTED besu.prepare failure
+   ✅ Fabric state = ABORTED
+[3] Timeout: besu.prepare hangs past 2s → abort
+   ✅ timed out and aborted in 6062 ms (within 2–10 s window)
+   ✅ Fabric state = ABORTED
+[4] Idempotency: retry commit on already-committed txId
+   ✅ replay commit succeeded (idempotent)
+   ✅ Fabric replay commit succeeded (idempotent)
+[5] Recovery: crash after prepare, run recoverPendingTransfers()
+   ✅ recovery resolved to ABORTED (action=abort)
+║  RESULT: 11/11 tests passed                                  ║

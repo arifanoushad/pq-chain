@@ -1,0 +1,22 @@
+# test-besu-v2.js (Besu 24.12.2 dev)
+# date: 2026-09-29T00:07:53+05:30 node: v24.21.0 commit: caff393
+
+[1] fresh prepare → PREPARED
+   ✅ status = PREPARED
+[2] duplicate prepare reverts
+   ✅ reverted as expected: "Transaction has been reverted by the EVM:
+[3] commit → COMMITTED
+   ✅ status = COMMITTED
+[4] second commit is idempotent (no revert)
+   ✅ repeat commit succeeded
+[5] abort on COMMITTED reverts
+   ✅ reverted as expected: "Transaction has been reverted by the EVM:
+[6] abort path: prepare → abort → ABORTED
+   ✅ status = ABORTED
+[7] commit on ABORTED reverts
+   ✅ reverted as expected: "Transaction has been reverted by the EVM:
+[8] second abort is idempotent (no revert)
+   ✅ repeat abort succeeded
+[9] getTransfer returns the full record
+   ✅ evidenceId="CASE-1790620673802" status=COMMITTED
+║  RESULT: 9/9 tests passed                                 ║

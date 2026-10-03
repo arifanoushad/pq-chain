@@ -1,0 +1,327 @@
+# Chaincode build test in hyperledger/fabric-ccenv:2.4.8
+# date: 2026-09-28T22:39:06+05:30  repo commit: 6aad5d7
+# image digest: hyperledger/fabric-ccenv@sha256:be984b7e54b3a7c14a2e2eb209c02b2c804b0a1ccdf2f551d9a9b782f11de4fb
+# container: go version go1.18.10 linux/amd64
+GO111MODULE=[]
+# build script (Fabric v2.4 golang platform, module branches, static ldflags):
+#   # Fabric v2.4 core/chaincode/platforms/golang buildScript (module branches), static ldflags
+#   set -e
+#   if [ -f "/chaincode/input/src/go.mod" ] && [ -d "/chaincode/input/src/vendor" ]; then
+#       cd /chaincode/input/src
+#       GO111MODULE=on go build -v -mod=vendor -ldflags "-linkmode external -extldflags '-static'" -o /chaincode/output/chaincode .
+#   elif [ -f "/chaincode/input/src/go.mod" ]; then
+#       cd /chaincode/input/src
+#       GO111MODULE=on go build -v -mod=readonly -ldflags "-linkmode external -extldflags '-static'" -o /chaincode/output/chaincode .
+#   fi
+#   echo Done!
+
+## variant: vendor (go mod vendor, -mod=vendor)
+google.golang.org/protobuf/internal/flags
+google.golang.org/grpc/attributes
+google.golang.org/grpc/serviceconfig
+github.com/hyperledger/fabric-contract-api-go/contractapi/utils
+github.com/rogpeppe/go-internal/semver
+github.com/gobuffalo/packd/internal/takeon/github.com/markbates/errx
+google.golang.org/protobuf/internal/set
+google.golang.org/protobuf/internal/pragma
+google.golang.org/grpc/internal/buffer
+google.golang.org/grpc/internal/grpcsync
+golang.org/x/text/transform
+github.com/josharian/intern
+google.golang.org/grpc/backoff
+google.golang.org/grpc/internal/grpcrand
+google.golang.org/grpc/keepalive
+google.golang.org/grpc/tap
+google.golang.org/protobuf/internal/detrand
+google.golang.org/protobuf/internal/version
+golang.org/x/sys/unix
+golang.org/x/net/internal/timeseries
+google.golang.org/grpc/internal/grpclog
+google.golang.org/grpc/metadata
+google.golang.org/grpc/codes
+google.golang.org/grpc/internal/envconfig
+golang.org/x/net/http2/hpack
+golang.org/x/text/unicode/bidi
+github.com/mailru/easyjson/jlexer
+github.com/mailru/easyjson/buffer
+github.com/go-openapi/jsonreference/internal
+gopkg.in/yaml.v2
+github.com/xeipuuv/gojsonpointer
+google.golang.org/grpc/internal/backoff
+google.golang.org/protobuf/internal/errors
+github.com/joho/godotenv
+github.com/rogpeppe/go-internal/module
+github.com/gobuffalo/packd
+google.golang.org/protobuf/encoding/protowire
+google.golang.org/grpc/grpclog
+google.golang.org/grpc/internal/grpcutil
+google.golang.org/grpc/internal/balancerload
+google.golang.org/grpc/stats
+golang.org/x/text/unicode/norm
+github.com/mailru/easyjson/jwriter
+github.com/xeipuuv/gojsonreference
+github.com/rogpeppe/go-internal/modfile
+google.golang.org/grpc/encoding
+golang.org/x/net/trace
+google.golang.org/protobuf/reflect/protoreflect
+github.com/xeipuuv/gojsonschema
+google.golang.org/grpc/connectivity
+google.golang.org/grpc/internal/credentials
+golang.org/x/text/secure/bidirule
+google.golang.org/protobuf/internal/encoding/messageset
+google.golang.org/protobuf/internal/strs
+google.golang.org/protobuf/internal/genid
+google.golang.org/protobuf/internal/order
+google.golang.org/protobuf/runtime/protoiface
+google.golang.org/protobuf/internal/descfmt
+google.golang.org/protobuf/internal/descopts
+github.com/gobuffalo/envy
+google.golang.org/protobuf/internal/encoding/text
+google.golang.org/protobuf/internal/encoding/json
+google.golang.org/protobuf/reflect/protoregistry
+github.com/gobuffalo/packr
+google.golang.org/protobuf/proto
+google.golang.org/protobuf/internal/encoding/defval
+golang.org/x/net/idna
+github.com/go-openapi/swag
+google.golang.org/grpc/internal/syscall
+google.golang.org/protobuf/encoding/prototext
+google.golang.org/protobuf/internal/filedesc
+github.com/hyperledger/fabric-contract-api-go/internal/utils
+github.com/go-openapi/jsonpointer
+golang.org/x/net/http/httpguts
+github.com/go-openapi/jsonreference
+golang.org/x/net/http2
+github.com/go-openapi/spec
+google.golang.org/protobuf/internal/encoding/tag
+google.golang.org/protobuf/encoding/protojson
+google.golang.org/protobuf/internal/impl
+github.com/hyperledger/fabric-contract-api-go/internal/types
+github.com/hyperledger/fabric-contract-api-go/metadata
+github.com/hyperledger/fabric-contract-api-go/serializer
+github.com/hyperledger/fabric-contract-api-go/internal
+google.golang.org/protobuf/internal/filetype
+google.golang.org/protobuf/runtime/protoimpl
+google.golang.org/protobuf/types/known/anypb
+google.golang.org/protobuf/types/known/emptypb
+google.golang.org/protobuf/types/known/timestamppb
+google.golang.org/protobuf/types/known/durationpb
+google.golang.org/protobuf/types/descriptorpb
+github.com/golang/protobuf/ptypes/duration
+github.com/golang/protobuf/ptypes/timestamp
+google.golang.org/grpc/binarylog/grpc_binarylog_v1
+github.com/golang/protobuf/ptypes/any
+google.golang.org/genproto/googleapis/rpc/status
+google.golang.org/protobuf/reflect/protodesc
+github.com/golang/protobuf/proto
+github.com/hyperledger/fabric-protos-go/msp
+github.com/hyperledger/fabric-protos-go/ledger/rwset
+google.golang.org/grpc/credentials
+google.golang.org/grpc/encoding/proto
+github.com/golang/protobuf/jsonpb
+github.com/golang/protobuf/ptypes
+github.com/hyperledger/fabric-protos-go/ledger/queryresult
+google.golang.org/grpc/credentials/insecure
+google.golang.org/grpc/peer
+google.golang.org/grpc/internal/channelz
+google.golang.org/grpc/internal/status
+github.com/hyperledger/fabric-chaincode-go/pkg/attrmgr
+github.com/hyperledger/fabric-protos-go/common
+google.golang.org/grpc/status
+github.com/hyperledger/fabric-chaincode-go/pkg/cid
+google.golang.org/grpc/internal/pretty
+google.golang.org/grpc/internal/binarylog
+google.golang.org/grpc/resolver
+google.golang.org/grpc/channelz
+google.golang.org/grpc/balancer/grpclb/state
+google.golang.org/grpc/internal/metadata
+google.golang.org/grpc/internal/resolver/passthrough
+google.golang.org/grpc/internal/transport/networktype
+google.golang.org/grpc/internal
+google.golang.org/grpc/internal/resolver/unix
+google.golang.org/grpc/internal/resolver/dns
+google.golang.org/grpc/balancer
+google.golang.org/grpc/internal/transport
+google.golang.org/grpc/balancer/base
+google.golang.org/grpc/internal/serviceconfig
+google.golang.org/grpc/internal/resolver
+google.golang.org/grpc/balancer/roundrobin
+google.golang.org/grpc/internal/balancer/gracefulswitch
+google.golang.org/grpc
+github.com/hyperledger/fabric-protos-go/peer
+github.com/hyperledger/fabric-chaincode-go/shim/internal
+github.com/hyperledger/fabric-chaincode-go/shim
+github.com/hyperledger/fabric-contract-api-go/contractapi
+evidence/contracts
+evidence
+Done!
+exit code: 0
+output: ELF 64-bit LSB executable, x86-64, 16723264 bytes
+
+## variant: novendor (no vendor dir, -mod=readonly, modules via proxy.golang.org)
+go: downloading github.com/hyperledger/fabric-contract-api-go v1.2.1
+go: downloading github.com/hyperledger/fabric-chaincode-go v0.0.0-20230228194215-b84622ba6a7a
+go: downloading github.com/hyperledger/fabric-protos-go v0.3.0
+go: downloading github.com/xeipuuv/gojsonschema v1.2.0
+go: downloading github.com/gobuffalo/packr v1.30.1
+go: downloading github.com/go-openapi/spec v0.20.8
+go: downloading github.com/gobuffalo/envy v1.10.1
+go: downloading github.com/gobuffalo/packd v1.0.1
+go: downloading google.golang.org/grpc v1.53.0
+go: downloading github.com/golang/protobuf v1.5.2
+go: downloading github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415
+go: downloading google.golang.org/protobuf v1.28.1
+go: downloading github.com/joho/godotenv v1.4.0
+go: downloading github.com/rogpeppe/go-internal v1.8.1
+go: downloading github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb
+go: downloading github.com/go-openapi/swag v0.21.1
+go: downloading github.com/go-openapi/jsonreference v0.20.0
+go: downloading github.com/go-openapi/jsonpointer v0.19.5
+go: downloading github.com/mailru/easyjson v0.7.7
+go: downloading gopkg.in/yaml.v2 v2.4.0
+go: downloading google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f
+go: downloading golang.org/x/net v0.7.0
+go: downloading golang.org/x/sys v0.5.0
+go: downloading github.com/josharian/intern v1.0.0
+go: downloading golang.org/x/text v0.7.0
+google.golang.org/protobuf/internal/flags
+google.golang.org/grpc/attributes
+google.golang.org/grpc/serviceconfig
+github.com/hyperledger/fabric-contract-api-go/contractapi/utils
+github.com/rogpeppe/go-internal/semver
+github.com/gobuffalo/packd/internal/takeon/github.com/markbates/errx
+google.golang.org/protobuf/internal/set
+github.com/josharian/intern
+google.golang.org/grpc/internal/buffer
+google.golang.org/protobuf/internal/pragma
+google.golang.org/grpc/internal/grpcsync
+golang.org/x/text/transform
+google.golang.org/grpc/internal/grpcrand
+google.golang.org/grpc/keepalive
+google.golang.org/grpc/backoff
+google.golang.org/protobuf/internal/detrand
+google.golang.org/protobuf/internal/version
+golang.org/x/sys/unix
+golang.org/x/net/internal/timeseries
+google.golang.org/grpc/metadata
+google.golang.org/grpc/internal/grpclog
+google.golang.org/grpc/codes
+google.golang.org/grpc/internal/envconfig
+golang.org/x/text/unicode/bidi
+golang.org/x/net/http2/hpack
+google.golang.org/grpc/tap
+github.com/mailru/easyjson/jlexer
+github.com/mailru/easyjson/buffer
+gopkg.in/yaml.v2
+github.com/go-openapi/jsonreference/internal
+github.com/xeipuuv/gojsonpointer
+google.golang.org/grpc/internal/backoff
+github.com/joho/godotenv
+github.com/rogpeppe/go-internal/module
+google.golang.org/protobuf/internal/errors
+github.com/gobuffalo/packd
+google.golang.org/grpc/grpclog
+github.com/mailru/easyjson/jwriter
+google.golang.org/protobuf/encoding/protowire
+google.golang.org/grpc/internal/balancerload
+google.golang.org/grpc/internal/grpcutil
+golang.org/x/text/unicode/norm
+google.golang.org/grpc/stats
+github.com/xeipuuv/gojsonreference
+github.com/rogpeppe/go-internal/modfile
+google.golang.org/grpc/encoding
+golang.org/x/net/trace
+github.com/xeipuuv/gojsonschema
+google.golang.org/protobuf/reflect/protoreflect
+google.golang.org/grpc/connectivity
+google.golang.org/grpc/internal/credentials
+golang.org/x/text/secure/bidirule
+github.com/gobuffalo/envy
+github.com/gobuffalo/packr
+google.golang.org/protobuf/internal/encoding/messageset
+google.golang.org/protobuf/runtime/protoiface
+google.golang.org/protobuf/internal/descopts
+google.golang.org/protobuf/internal/descfmt
+google.golang.org/protobuf/internal/strs
+google.golang.org/protobuf/internal/order
+google.golang.org/protobuf/internal/genid
+google.golang.org/protobuf/reflect/protoregistry
+google.golang.org/protobuf/internal/encoding/json
+google.golang.org/protobuf/internal/encoding/text
+golang.org/x/net/idna
+google.golang.org/protobuf/proto
+google.golang.org/protobuf/internal/encoding/defval
+github.com/go-openapi/swag
+google.golang.org/grpc/internal/syscall
+golang.org/x/net/http/httpguts
+google.golang.org/protobuf/encoding/prototext
+google.golang.org/protobuf/internal/filedesc
+golang.org/x/net/http2
+github.com/hyperledger/fabric-contract-api-go/internal/utils
+github.com/go-openapi/jsonpointer
+github.com/go-openapi/jsonreference
+github.com/go-openapi/spec
+google.golang.org/protobuf/internal/encoding/tag
+google.golang.org/protobuf/encoding/protojson
+google.golang.org/protobuf/internal/impl
+github.com/hyperledger/fabric-contract-api-go/internal/types
+github.com/hyperledger/fabric-contract-api-go/metadata
+github.com/hyperledger/fabric-contract-api-go/serializer
+github.com/hyperledger/fabric-contract-api-go/internal
+google.golang.org/protobuf/internal/filetype
+google.golang.org/protobuf/runtime/protoimpl
+google.golang.org/protobuf/types/known/durationpb
+google.golang.org/protobuf/types/known/emptypb
+google.golang.org/protobuf/types/known/anypb
+google.golang.org/protobuf/types/known/timestamppb
+google.golang.org/protobuf/types/descriptorpb
+github.com/golang/protobuf/ptypes/duration
+github.com/golang/protobuf/ptypes/timestamp
+google.golang.org/grpc/binarylog/grpc_binarylog_v1
+github.com/golang/protobuf/ptypes/any
+google.golang.org/genproto/googleapis/rpc/status
+google.golang.org/protobuf/reflect/protodesc
+github.com/golang/protobuf/proto
+github.com/hyperledger/fabric-protos-go/ledger/rwset
+github.com/hyperledger/fabric-protos-go/msp
+google.golang.org/grpc/credentials
+github.com/golang/protobuf/jsonpb
+google.golang.org/grpc/encoding/proto
+github.com/golang/protobuf/ptypes
+github.com/hyperledger/fabric-protos-go/ledger/queryresult
+google.golang.org/grpc/credentials/insecure
+google.golang.org/grpc/peer
+google.golang.org/grpc/internal/channelz
+google.golang.org/grpc/internal/status
+google.golang.org/grpc/status
+github.com/hyperledger/fabric-chaincode-go/pkg/attrmgr
+github.com/hyperledger/fabric-protos-go/common
+google.golang.org/grpc/internal/binarylog
+google.golang.org/grpc/internal/pretty
+github.com/hyperledger/fabric-chaincode-go/pkg/cid
+google.golang.org/grpc/resolver
+google.golang.org/grpc/balancer/grpclb/state
+google.golang.org/grpc/internal/resolver/passthrough
+google.golang.org/grpc/internal
+google.golang.org/grpc/internal/transport/networktype
+google.golang.org/grpc/internal/metadata
+google.golang.org/grpc/channelz
+google.golang.org/grpc/internal/resolver/unix
+google.golang.org/grpc/internal/resolver/dns
+google.golang.org/grpc/balancer
+google.golang.org/grpc/internal/transport
+google.golang.org/grpc/internal/serviceconfig
+google.golang.org/grpc/balancer/base
+google.golang.org/grpc/internal/resolver
+google.golang.org/grpc/balancer/roundrobin
+google.golang.org/grpc/internal/balancer/gracefulswitch
+google.golang.org/grpc
+github.com/hyperledger/fabric-protos-go/peer
+github.com/hyperledger/fabric-chaincode-go/shim/internal
+github.com/hyperledger/fabric-chaincode-go/shim
+github.com/hyperledger/fabric-contract-api-go/contractapi
+evidence/contracts
+evidence
+Done!
+exit code: 0
+output: ELF 64-bit LSB executable, x86-64, 16725144 bytes

@@ -1,0 +1,38 @@
+# test-fabric-fsm.js (FABRIC_MODE=real)
+# date: 2026-09-28T23:16:53+05:30  node: v24.21.0  commit: ae324da (+ uncommitted changes of this commit)
+# network: Fabric 2.4.8 (Minifab; PoliceOrg, CourtOrg, 3 Raft orderers, CouchDB; chaincode as a service) + Besu 24.12.2 dev + 3 Kubo 0.32.1 replicas on one host
+
+ℹ️  FabricTransferClient running in REAL mode
+
+[0] Setup: register uploader and submit evidence
+   ✅ evidence FSM-muljhtm6 submitted
+
+[1] NONE -> PREPARED
+   ✅ unknown txId has status NONE
+   ✅ PrepareTransfer -> PREPARED
+   ✅ record stores metadataHash, bundleHash, signerSet, evidenceId, targetChain
+
+[2] Idempotent prepare and evidence lock
+   ✅ re-prepare with identical arguments is idempotent
+   ✅ re-prepare with different arguments rejected
+   ✅ second transfer of the same evidence rejected while PREPARED (lock)
+
+[3] PREPARED -> COMMITTED (terminal)
+   ✅ CommitTransfer -> COMMITTED
+   ✅ repeat commit is idempotent
+   ✅ abort after commit rejected
+
+[4] Lock released; PREPARED -> ABORTED (terminal)
+   ✅ new transfer of the same evidence allowed after commit
+   ✅ AbortTransfer -> ABORTED
+   ✅ repeat abort is idempotent
+   ✅ commit after abort rejected
+   ✅ lock released after abort
+
+[5] Input validation
+   ✅ commit of unknown txId rejected
+   ✅ prepare for non-existent evidence rejected
+   ✅ empty signerSet rejected
+   ✅ unsupported algorithm rejected
+
+19 passed, 0 failed

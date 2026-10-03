@@ -1,0 +1,16 @@
+<h2>Submit New Evidence</h2>
+<form method="POST" action="/submit">
+  <label>Evidence ID:</label>
+  <input type="text" name="evidenceId" required><br>
+  <label>Title:</label>
+  <input type="text" name="title" required><br>
+  <label>CID:</label>
+  <input type="text" name="cid" required><br>
+  <label>Mime Type:</label>
+  <input type="text" name="mimeType" required value="application/pdf"><br>
+  <button type="submit">Submit</button>
+</form>
+
+{{#if message}}
+  <p><strong>{{message}}</strong></p>
+{{/if}}

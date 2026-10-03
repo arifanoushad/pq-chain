@@ -1,0 +1,14 @@
+# WP3 encryption benchmark console log
+# date: 2026-09-28T23:45:44+05:30 node: v24.21.0 commit: 98ebd17 power: AC=1 profile=performance
+# env: BUNDLE_IPFS_URLS=3 local Kubo replicas; sizes 1,10,100,1024 MB; 20 iterations (<100 MB) / 5 (>=100 MB); 1 warm-up
+
+IPFS replicas: 3; warm-up 1; iterations 20 (<100 MB) / 5 (>=100 MB)
+
+size(MB) │ encrypt(ms) wrap(ms) decrypt(ms) │ ipfsPlain(ms) ipfsEnc(ms) overhead
+       1 │         3.6     1.00         3.0 │            54         107    97.4%
+      10 │        17.5     1.22        17.7 │           110         191    72.8%
+     100 │       185.6     1.52       162.9 │           651        1061    63.0%
+    1024 │      1490.0     1.30      1494.3 │          6613       10961    65.8%
+
+Saved /home/arifa/projects/JISA Revision/Code Files/UI/test-scripts/test-results/revision/encryption-1790619494909.json
+exit 0

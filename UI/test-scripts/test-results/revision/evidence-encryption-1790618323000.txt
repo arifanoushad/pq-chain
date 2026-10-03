@@ -1,0 +1,28 @@
+# test-evidence-encryption.js (3 local Kubo replicas)
+# date: 2026-09-28T23:28:43+05:30  node: v24.21.0
+
+
+[1] Encrypt / decrypt
+   ✅ ciphertext has plaintext length and no plaintext marker
+   ✅ envelope: 2 wrapped keys (PoliceOrg, CourtOrg) and plaintext SHA-256; no plaintext
+   ✅ PoliceOrg decrypts to the original file
+   ✅ CourtOrg decrypts to the original file
+
+[2] Rejections
+   ✅ wrong secret key for the recipient → rejected, no output
+   ✅ non-recipient → rejected
+   ✅ one flipped ciphertext bit → rejected, no output
+   ✅ ciphertext presented under another evidence ID → rejected (AAD)
+   ✅ altered GCM tag → rejected
+   ✅ envelope with a different plaintext hash → rejected
+   ✅ fresh data key and IV per encryption
+
+[3] Live IPFS round trip
+   ✅ envelope and ciphertext pinned on 3 IPFS node(s)
+   ✅ IPFS holds ciphertext only
+   ✅ CourtOrg retrieves and decrypts from node http://127.0.0.1:5001
+   ✅ CourtOrg retrieves and decrypts from node http://127.0.0.1:5002
+   ✅ CourtOrg retrieves and decrypts from node http://127.0.0.1:5003
+   ✅ envelope requested for another evidence ID → rejected
+
+17 passed, 0 failed

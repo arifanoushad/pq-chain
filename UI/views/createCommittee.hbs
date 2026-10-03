@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-plus-circle text-purple-600 text-2xl mr-3"></i>
+                    <span class="text-xl font-bold text-gray-900">Create Committee</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="/committees" class="text-gray-600 hover:text-purple-600">
+                        <i class="fas fa-arrow-left mr-1"></i> Back to Committees
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-3xl mx-auto py-8 px-4">
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Create New Threshold Committee</h1>
+
+            {{#if error}}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                {{error}}
+            </div>
+            {{/if}}
+
+            <form method="POST" id="committeeForm">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Committee Name *</label>
+                    <input type="text" name="name" required class="w-full px-3 py-2 border rounded-lg focus:ring-purple-500 focus:border-purple-500">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Committee Type *</label>
+                    <select name="type" required class="w-full px-3 py-2 border rounded-lg">
+                        <option value="police">Police Committee (for sending evidence)</option>
+                        <option value="court">Court Committee (for receiving evidence)</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea name="description" rows="2" class="w-full px-3 py-2 border rounded-lg"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Threshold (t) *</label>
+                    <input type="number" name="threshold" id="threshold" required min="2" class="w-full px-3 py-2 border rounded-lg">
+                    <p class="text-xs text-gray-500 mt-1">Minimum number of members required to approve</p>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Members *</label>
+                    <div class="border rounded-lg p-4 max-h-64 overflow-y-auto">
+                        {{#each users}}
+                        <div class="flex items-center mb-2 member-checkbox">
+                            <input type="checkbox" value="{{this.userId}}" data-name="{{this.name}}" class="member-check mr-3 h-4 w-4 text-purple-600">
+                            <span class="text-sm">{{this.name}}</span>
+                            <span class="text-xs text-gray-500 ml-2">({{this.userId}})</span>
+                        </div>
+                        {{else}}
+                        <p class="text-gray-500 text-center">No users registered yet</p>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <h3 class="font-medium text-gray-700 mb-2">Committee Summary</h3>
+                    <p>Selected Members: <span id="memberCount">0</span></p>
+                    <p>Threshold: <span id="thresholdDisplay">-</span></p>
+                    <p id="validMessage" class="text-green-600 hidden">✓ Valid configuration</p>
+                    <p id="invalidMessage" class="text-red-600 hidden">✗ Threshold must be ≤ number of members</p>
+                </div>
+
+                <input type="hidden" name="members" id="membersInput">
+                
+                <div class="flex justify-end space-x-4">
+                    <a href="/committees" class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">Cancel</a>
+                    <button type="submit" id="submitBtn" disabled class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400">
+                        Create Committee
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.member-check');
+        const memberCountSpan = document.getElementById('memberCount');
+        const thresholdInput = document.getElementById('threshold');
+        const thresholdDisplay = document.getElementById('thresholdDisplay');
+        const validMessage = document.getElementById('validMessage');
+        const invalidMessage = document.getElementById('invalidMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        const membersInput = document.getElementById('membersInput');
+
+        function updateSummary() {
+            const selected = Array.from(checkboxes).filter(cb => cb.querySelector('.member-check').checked);
+            const memberCount = selected.length;
+            const threshold = parseInt(thresholdInput.value) || 0;
+            
+            memberCountSpan.textContent = memberCount;
+            thresholdDisplay.textContent = threshold || '-';
+            
+            const isValid = threshold > 0 && threshold <= memberCount && memberCount >= 2;
+            
+            if (isValid) {
+                validMessage.classList.remove('hidden');
+                invalidMessage.classList.add('hidden');
+                submitBtn.disabled = false;
+            } else {
+                validMessage.classList.add('hidden');
+                invalidMessage.classList.remove('hidden');
+                submitBtn.disabled = true;
+            }
+            
+            // Update hidden input with selected members JSON
+            const members = selected.map(cb => ({
+                address: cb.querySelector('.member-check').value,
+                name: cb.querySelector('.member-check').getAttribute('data-name'),
+                role: 'Member'
+            }));
+            membersInput.value = JSON.stringify(members);
+        }
+        
+        checkboxes.forEach(cb => {
+            cb.querySelector('.member-check').addEventListener('change', updateSummary);
+        });
+        
+        thresholdInput.addEventListener('input', updateSummary);
+        
+        updateSummary();
+    </script>
+</body>
+</html>

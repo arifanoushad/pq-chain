@@ -1,0 +1,101 @@
+# test-multi-sig-real.js — 8 scenarios x 4 algorithms
+# date: 2026-09-29T00:07:53+05:30 node: v24.21.0 commit: caff393
+
+╔══════════════════════════════════════════════════════════╗
+╚══════════════════════════════════════════════════════════╝
+════════ ECC ════════
+[1] Happy path: 3 of 5 members sign, court verifies
+   ✅ Bundle verifies
+   ✅ Exactly 3 valid partial signatures
+   ✅ All signers recorded
+[2] Too few signers: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: got 2 partials, need at least 3"
+[3] Tampered signature: court rejects
+   ✅ Tampered bundle rejected
+   ✅ Reason reported: "Partial signature from eb6a792219bce287320fa940fa603d2af97d92bc failed cryptographic verification"
+[4] Wrong evidence hash: court rejects
+   ✅ Wrong-hash bundle rejected
+[5] Outsider signer: policy check rejects
+   ✅ Bundle with outsider rejected
+[6] Duplicate signer: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: only 2 distinct signers, need 3"
+[7] Serialize ↔ deserialize round-trip
+   ✅ Round-tripped bundle verifies
+[8] Substituted key under a registered address: court rejects
+   ✅ Substituted key rejected
+   ✅ Reason reported: "Public key in partial from eb6a792219bce287320fa940fa603d2af97d92bc is not the registered key of that signer"
+   ✅ Embedded key differing from the registered key rejected
+   ✅ Address-only registry (no public keys) rejected
+════════ DILITHIUM2 ════════
+[1] Happy path: 3 of 5 members sign, court verifies
+   ✅ Bundle verifies
+   ✅ Exactly 3 valid partial signatures
+   ✅ All signers recorded
+[2] Too few signers: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: got 2 partials, need at least 3"
+[3] Tampered signature: court rejects
+   ✅ Tampered bundle rejected
+   ✅ Reason reported: "Partial signature from fbfa5deda39cf134ddde9cf2ed87fd5967fbeff8 failed cryptographic verification"
+[4] Wrong evidence hash: court rejects
+   ✅ Wrong-hash bundle rejected
+[5] Outsider signer: policy check rejects
+   ✅ Bundle with outsider rejected
+[6] Duplicate signer: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: only 2 distinct signers, need 3"
+[7] Serialize ↔ deserialize round-trip
+   ✅ Round-tripped bundle verifies
+[8] Substituted key under a registered address: court rejects
+   ✅ Substituted key rejected
+   ✅ Reason reported: "Public key in partial from fbfa5deda39cf134ddde9cf2ed87fd5967fbeff8 is not the registered key of that signer"
+   ✅ Embedded key differing from the registered key rejected
+   ✅ Address-only registry (no public keys) rejected
+════════ DILITHIUM3 ════════
+[1] Happy path: 3 of 5 members sign, court verifies
+   ✅ Bundle verifies
+   ✅ Exactly 3 valid partial signatures
+   ✅ All signers recorded
+[2] Too few signers: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: got 2 partials, need at least 3"
+[3] Tampered signature: court rejects
+   ✅ Tampered bundle rejected
+   ✅ Reason reported: "Partial signature from ffe6db2d8488341afe5e4fd8a2f4154d63f12adf failed cryptographic verification"
+[4] Wrong evidence hash: court rejects
+   ✅ Wrong-hash bundle rejected
+[5] Outsider signer: policy check rejects
+   ✅ Bundle with outsider rejected
+[6] Duplicate signer: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: only 2 distinct signers, need 3"
+[7] Serialize ↔ deserialize round-trip
+   ✅ Round-tripped bundle verifies
+[8] Substituted key under a registered address: court rejects
+   ✅ Substituted key rejected
+   ✅ Reason reported: "Public key in partial from ffe6db2d8488341afe5e4fd8a2f4154d63f12adf is not the registered key of that signer"
+   ✅ Embedded key differing from the registered key rejected
+   ✅ Address-only registry (no public keys) rejected
+════════ DILITHIUM5 ════════
+[1] Happy path: 3 of 5 members sign, court verifies
+   ✅ Bundle verifies
+   ✅ Exactly 3 valid partial signatures
+   ✅ All signers recorded
+[2] Too few signers: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: got 2 partials, need at least 3"
+[3] Tampered signature: court rejects
+   ✅ Tampered bundle rejected
+   ✅ Reason reported: "Partial signature from 2dcc0aa6e7ccdc30c8d9c12971977f7e37e40478 failed cryptographic verification"
+[4] Wrong evidence hash: court rejects
+   ✅ Wrong-hash bundle rejected
+[5] Outsider signer: policy check rejects
+   ✅ Bundle with outsider rejected
+[6] Duplicate signer: aggregator rejects
+   ✅ Combine threw: "combinePartialSignatures: only 2 distinct signers, need 3"
+[7] Serialize ↔ deserialize round-trip
+   ✅ Round-tripped bundle verifies
+[8] Substituted key under a registered address: court rejects
+   ✅ Substituted key rejected
+   ✅ Reason reported: "Public key in partial from 2dcc0aa6e7ccdc30c8d9c12971977f7e37e40478 is not the registered key of that signer"
+   ✅ Embedded key differing from the registered key rejected
+   ✅ Address-only registry (no public keys) rejected
+╔═════════════════════════════════════════════════════════════╗
+╚═════════════════════════════════════════════════════════════╝
+✅ Multi-signature test complete.
+exit 0

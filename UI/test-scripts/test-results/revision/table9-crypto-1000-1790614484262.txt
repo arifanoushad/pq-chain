@@ -1,0 +1,25 @@
+# Table 9 single-signer benchmark (benchmark-crypto-1000.js)
+# date: 2026-09-28T22:24:44+05:30  node: v24.21.0  commit: 68f72df
+# cpu: 13th Gen Intel(R) Core(TM) i7-1360P  ram: 16 GB  os: Ubuntu 26.04 LTS  kernel: 7.0.0-34-generic
+# power: AC=1 profile=performance
+
+📊 Crypto Performance Monitor: Terminal Output Mode
+
+╔══════════════════════════════════════════════════════════════╗
+║     BENCHMARK 1: CRYPTO OPERATIONS (1000 iterations)         ║
+╚══════════════════════════════════════════════════════════════╝
+🔧 PQC Research Framework: REAL ECC + REAL Dilithium (will load on demand)
+
+
+╔══════════════════════════════════════════════════════════════╗
+║     CRYPTO OPERATIONS RESULTS (1000 iterations)               ║
+╚══════════════════════════════════════════════════════════════╝
+
+Algorithm     │ KeyGen(ms) │ Sign(ms) │ Verify(ms) │ 95th% │ Min │ Max │ StdDev
+──────────────┼────────────┼──────────┼────────────┼───────┼─────┼─────┼───────
+ECC          │       0.43 │     0.86 │       1.05 │     1 │ 0 │ 3 │ 0.37
+DILITHIUM2   │       0.72 │     3.25 │       0.82 │     8 │ 1 │ 17 │ 2.30
+DILITHIUM3   │       1.29 │     5.20 │       1.27 │    12 │ 2 │ 30 │ 3.45
+DILITHIUM5   │       2.06 │     6.93 │       2.09 │    15 │ 3 │ 28 │ 4.12
+
+✅ Crypto Benchmark Complete!

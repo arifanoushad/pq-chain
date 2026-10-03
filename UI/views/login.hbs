@@ -1,0 +1,117 @@
+<div class="min-h-screen gradient-bg flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 card-hover">
+            <div class="text-center">
+                <i class="fas fa-shield-alt text-purple-600 text-4xl mb-4"></i>
+                <h2 class="text-3xl font-bold text-gray-900">Welcome Back</h2>
+                <p class="mt-2 text-gray-600">Sign in to your account</p>
+            </div>
+
+            {{#if message}}
+            <div class="mt-4 p-4 rounded-lg bg-red-100 text-red-700">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                {{message}}
+            </div>
+            {{/if}}
+
+            {{#if registrationSuccess}}
+            <div class="mt-4 p-4 rounded-lg bg-green-100 text-green-700">
+                <i class="fas fa-check-circle mr-2"></i>
+                {{registrationSuccess}}
+            </div>
+            {{/if}}
+
+            <form class="mt-8 space-y-6" method="POST" action="/login" id="loginForm">
+                <div>
+                    <label for="privateKey" class="block text-sm font-medium text-gray-700">
+                        Private Key
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-1 relative">
+                        <textarea id="privateKey" name="privateKey" required 
+                                  rows="3"
+                                  class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 pr-10 font-mono text-sm"
+                                  placeholder="Paste your 64-character private key here"></textarea>
+                        <div class="absolute inset-y-0 right-0 pr-3 pt-2 flex items-start">
+                            <i class="fas fa-key text-gray-400"></i>
+                        </div>
+                    </div>
+                    <p class="mt-1 text-sm text-gray-500">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Paste the exact private key from your registration. Must be 64 characters.
+                    </p>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-blue-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Tips for Success</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <p>• Use "Copy Private Key" button from registration</p>
+                                <p>• Ensure no extra spaces before/after the key</p>
+                                <p>• Private key should be exactly 64 characters</p>
+                                <p>• Format: 64 hexadecimal characters (0-9, a-f)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition duration-150">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Sign In
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    Don't have an account?
+                    <a href="/register" class="font-medium text-purple-600 hover:text-purple-500 transition duration-150">
+                        Register here
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const privateKeyField = document.getElementById('privateKey');
+    const loginForm = document.getElementById('loginForm');
+    
+    // Auto-trim on form submission
+    loginForm.addEventListener('submit', function() {
+        if (privateKeyField.value) {
+            privateKeyField.value = privateKeyField.value.trim();
+        }
+    });
+    
+    // Show character count
+    privateKeyField.addEventListener('input', function() {
+        const length = this.value.length;
+        let helpText = this.parentElement.querySelector('.help-text');
+        
+        if (!helpText) {
+            helpText = document.createElement('p');
+            helpText.className = 'mt-1 text-sm help-text';
+            this.parentElement.appendChild(helpText);
+        }
+        
+        if (length === 64) {
+            helpText.innerHTML = '<i class="fas fa-check text-green-500 mr-1"></i> Perfect! 64 characters';
+            helpText.className = 'mt-1 text-sm text-green-600 help-text';
+        } else if (length > 0) {
+            helpText.textContent = `${length} characters (needs 64)`;
+            helpText.className = 'mt-1 text-sm text-red-600 help-text';
+        } else {
+            helpText.textContent = '';
+        }
+    });
+});
+</script>

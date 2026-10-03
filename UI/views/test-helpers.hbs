@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">{{title}}</h1>
+            
+            <div class="space-y-4">
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-2">String Helpers</h2>
+                    <p><strong>Original string:</strong> "{{testData.string}}"</p>
+                    <p><strong>substr (0,5):</strong> "{{substr testData.string 0 5}}"</p>
+                    <p><strong>substr (5,8):</strong> "{{substr testData.string 5 8}}"</p>
+                    <p><strong>Lowercase:</strong> "{{lowercase testData.ownerId}}"</p>
+                    <p><strong>Uppercase:</strong> "{{uppercase testData.ownerId}}"</p>
+                </div>
+
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-2">Comparison Helpers</h2>
+                    <p><strong>eq('PoliceOrg', 'PoliceOrg'):</strong> {{eq testData.ownerId 'PoliceOrg'}}</p>
+                    <p><strong>eq('PoliceOrg', 'policeorg'):</strong> {{eq testData.ownerId 'policeorg'}}</p>
+                    <p><strong>neq('PoliceOrg', 'policeorg'):</strong> {{neq testData.ownerId 'policeorg'}}</p>
+                    <p><strong>gt(10, 5):</strong> {{gt testData.number1 testData.number2}}</p>
+                    <p><strong>lt(5, 10):</strong> {{lt testData.number2 testData.number1}}</p>
+                </div>
+
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-2">Logical Helpers</h2>
+                    <p><strong>or(eq, eq):</strong> {{or (eq testData.ownerId 'PoliceOrg') (eq testData.ownerId2 'policeorg')}}</p>
+                    <p><strong>and(eq, eq):</strong> {{and (eq testData.ownerId 'PoliceOrg') (eq testData.ownerId2 'policeorg')}}</p>
+                </div>
+
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-2">Array Helpers</h2>
+                    <p><strong>inArray('PoliceOrg', array):</strong> {{inArray 'PoliceOrg' testData.array}}</p>
+                    <p><strong>inArray('InvalidOrg', array):</strong> {{inArray 'InvalidOrg' testData.array}}</p>
+                </div>
+
+                <div class="border-b pb-4">
+                    <h2 class="text-lg font-semibold mb-2">Date Helper</h2>
+                    <p><strong>formatDate(now):</strong> {{formatDate testData.evidence.createdAt}}</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">JSON Helper</h2>
+                    <pre class="bg-gray-100 p-3 rounded text-sm">{{json testData.evidence}}</pre>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <a href="/list" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    Go to Evidence List
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

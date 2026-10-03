@@ -1,0 +1,19 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "Fabric Client for Evidence Management System",
+  "main": "client.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node client.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fabric-ca-client": "^2.2.14",
+    "fabric-common": "^2.2.14",
+    "fabric-network": "^2.2.14",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}

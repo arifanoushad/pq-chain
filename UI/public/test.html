@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Test</title>
+    <link href="/stylesheets/style.css?v=2.0" rel="stylesheet">
+</head>
+<body>
+    <h1>CSS Test Page</h1>
+    <button class="btn-primary">Test Blue Button</button>
+    <button class="btn-secondary">Test Green Button</button>
+    <div class="metric-card">Test Card</div>
+    
+    <script>
+        // Test if CSS classes are applied
+        const btn = document.querySelector('.btn-primary');
+        const computedStyle = window.getComputedStyle(btn);
+        console.log('Button background:', computedStyle.background);
+        
+        if (computedStyle.background.includes('gradient')) {
+            document.body.innerHTML += '<p style="color: green; font-size: 24px;">✅ CSS IS WORKING!</p>';
+        } else {
+            document.body.innerHTML += '<p style="color: red; font-size: 24px;">❌ CSS NOT WORKING</p>';
+        }
+    </script>
+</body>
+</html>

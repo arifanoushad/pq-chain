@@ -1,0 +1,79 @@
+# Node modules
+**/node_modules/
+
+# Data files (contains private keys)
+UI/data/*.json
+UI/data/users.json*
+
+# IPFS storage
+UI/ipfs-storage/
+
+# Network vars (certificates and sensitive data)
+Network/vars/
+Network/vars/profiles/
+Network/vars/*.pb
+Network/vars/*.key
+Network/vars/*.crt
+
+# Besu data (large blockchain data)
+besu-testnet/*/data/
+besu-testnet/*/chaindata/
+quorum-test-network/data/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.backup
+test-results/
+uploads/
+# JISA revision: raw outputs of revision scripts are versioned (checked: no keys or user data)
+!UI/test-scripts/test-results/
+UI/test-scripts/test-results/*
+!UI/test-scripts/test-results/revision/
+
+# Old backup files
+UI/utils/userManager.js.backup
+UI/utils/register-user-backup.js
+UI/test-real-dilithium-v2.mjs
+
+# Besu installer and runtime
+besu-*.tar.gz
+besu-dev/
+
+# Runtime data and logs
+UI/data/*.jsonl
+UI/data/bundles/
+UI/artifacts-v2/
+UI/backups/
+
+# Workflow documents (not source code)
+*.odt
+*.dotx
+Untitled*
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
+workflow.pdf
+Chaincode/evidence/evidence
+# WP3 recipient keys (generated locally by UI/scripts/generate-recipient-keys.js)
+UI/config/evidence-recipients.json
+UI/data/keys/
+UI/data/shares/
